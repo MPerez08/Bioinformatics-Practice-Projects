@@ -1,0 +1,19 @@
+# Data files (Too large for GitHub)
+*.tsv
+*.csv
+*.xlsx
+data/
+
+# Python environment & cache
+__pycache__/
+*.pyc
+.venv/
+env/
+.ipynb_checkpoints/
+
+# Local OS files
+.DS_Store
+Thumbs.db
+
+# Large Results (Optional: keep if you want to push plots, ignore if they are too big)
+# results/tables/
