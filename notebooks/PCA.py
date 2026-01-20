@@ -1,11 +1,11 @@
 # %%
 #This notebook requires the output from DeSeq_Pipeline.py
 
-# Cleaning up summary stats
+# 1. Cleaning up summary stats
 res = stat_res.results_df
 res_clean = res.dropna(subset=['padj'])
 
-# GENE MAPPING
+# 2. GENE MAPPING
 mg = mygene.MyGeneInfo() #Initializing mygene client
 ensembl_ids = res_clean.index.tolist() #Pulling list of Ensembl ID's
 gene_info = mg.querymany(ensembl_ids, scopes='ensembl.gene', fields='symbol', species='human') #Querying the Database to get Gene ID Symbol (Human Specific)
@@ -13,7 +13,7 @@ gene_info = mg.querymany(ensembl_ids, scopes='ensembl.gene', fields='symbol', sp
 # Creating a Mapping Dictionary {ENSG_ID: Symbol}
 mapping_dict = {item['query']: item.get('symbol', item['query']) for item in gene_info}
 
-# PLOTTING PCA
+# 8. PLOTTING PCA
 plt.figure(figsize=(8, 6))
 for cond in pca_df["Condition"].unique():
     subset = pca_df[pca_df["Condition"] == cond]
@@ -23,12 +23,9 @@ plt.xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}%)")
 plt.ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}%)")
 plt.legend()
 plt.title("PCA of RNA-seq Samples")
-
-# Saving Before Showing
-plt.savefig("results/plots/pca_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
-# IDENTIFYING DRIVER GENES (Loadings) ---
+# 9a. IDENTIFYING DRIVER GENES (Loadings) ---
 loadings = pd.DataFrame(
     pca.components_.T,
     columns=['PC1', 'PC2'],
@@ -44,7 +41,7 @@ print("\nTop genes driving PC1 variance:")
 
 print(loadings.loc[top_pc1_genes, ['symbol', 'PC1']])
 
-# PLOT LOADINGS
+# 9b PLOT LOADINGS ---
 def plot_top_loadings(loadings, pc='PC1', n=10):
     top_genes = loadings[pc].abs().sort_values(ascending=False).head(n).index
     plt.figure(figsize=(8,6))
