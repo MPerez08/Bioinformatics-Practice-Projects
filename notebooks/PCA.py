@@ -1,4 +1,6 @@
 # %%
+#This notebook requires the output from DeSeq_Pipeline.py
+
 # Cleaning up summary stats
 res = stat_res.results_df
 res_clean = res.dropna(subset=['padj'])
@@ -30,7 +32,7 @@ plt.show()
 loadings = pd.DataFrame(
     pca.components_.T,
     columns=['PC1', 'PC2'],
-    index=pca_input.columns # This must match the index of pca_input
+    index=log_counts.columns # This must match the index of pca_input
 )
 
 loadings['symbol'] = loadings.index.map(mapping_dict)
