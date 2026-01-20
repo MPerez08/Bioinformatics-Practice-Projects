@@ -1,7 +1,10 @@
+# %%
+
 # 11. CREATING HEATMAPS 
 
 #DATA PREP
 # 1. Get the indices (ENSG IDs) of the top 20 most significant genes (lowest padj)
+
 #Filtering out NaNs first ensuring we valid p-values
 top_20_indices = res.dropna(subset=['padj']).nsmallest(20, 'padj').index
 
