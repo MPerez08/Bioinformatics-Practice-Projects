@@ -1,3 +1,4 @@
+# %%
 # 8. PLOTTING PCA
 plt.figure(figsize=(8, 6))
 for cond in pca_df["Condition"].unique():
