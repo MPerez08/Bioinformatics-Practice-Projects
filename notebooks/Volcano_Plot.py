@@ -1,3 +1,5 @@
+# %%
+
 # 10. PLOTTING VOLCANO
 # Setup thresholds
 p_thresh = 0.05
