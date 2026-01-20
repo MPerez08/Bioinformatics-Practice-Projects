@@ -1,5 +1,17 @@
 # %%
-# 8. PLOTTING PCA
+# Cleaning up summary stats
+res = stat_res.results_df
+res_clean = res.dropna(subset=['padj'])
+
+# GENE MAPPING
+mg = mygene.MyGeneInfo() #Initializing mygene client
+ensembl_ids = res_clean.index.tolist() #Pulling list of Ensembl ID's
+gene_info = mg.querymany(ensembl_ids, scopes='ensembl.gene', fields='symbol', species='human') #Querying the Database to get Gene ID Symbol (Human Specific)
+
+# Creating a Mapping Dictionary {ENSG_ID: Symbol}
+mapping_dict = {item['query']: item.get('symbol', item['query']) for item in gene_info}
+
+# PLOTTING PCA
 plt.figure(figsize=(8, 6))
 for cond in pca_df["Condition"].unique():
     subset = pca_df[pca_df["Condition"] == cond]
@@ -14,7 +26,7 @@ plt.title("PCA of RNA-seq Samples")
 plt.savefig("results/plots/pca_plot.png", dpi=300, bbox_inches='tight')
 plt.show()
 
-# 9a. IDENTIFYING DRIVER GENES (Loadings) ---
+# IDENTIFYING DRIVER GENES (Loadings) ---
 loadings = pd.DataFrame(
     pca.components_.T,
     columns=['PC1', 'PC2'],
@@ -30,7 +42,7 @@ print("\nTop genes driving PC1 variance:")
 
 print(loadings.loc[top_pc1_genes, ['symbol', 'PC1']])
 
-# 9b PLOT LOADINGS ---
+# PLOT LOADINGS
 def plot_top_loadings(loadings, pc='PC1', n=10):
     top_genes = loadings[pc].abs().sort_values(ascending=False).head(n).index
     plt.figure(figsize=(8,6))
