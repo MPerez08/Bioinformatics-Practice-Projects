@@ -28,6 +28,26 @@ typical of RNA-seq count data.
 
 ```coding block ... ``` 
 
+#Repositories Needed
+## Web Application Used
+Jupyer Notebook 
+
+##Below are the libraries you'll need to download:
+
+1) pandas: open sourced data analysis tool creating 2D DataFrame structures 
+allowing for intelligent filtering and cleaning from seamless loading of a diverse set of 
+sources inlcuding CSV, excel, SQL, JSON, and HDF5
+
+2) numpy: fundamental package for computing multidimensional arrays packed with high level mathematical functions to analyze data
+
+3) seaborn: Python data visualization providing high level interfaces and drawing informative statistical graphics with minimal code
+
+4) sklearn(Scikit-Learn):  open sourced machine learning library that performs "non-deep learning" focusing on predictive data analysis
+                           integrates well with Pandas Dataframes and NumPy arrays
+
+5) pydeseq: Python version of the DESeq2 which is a specialized package designed to analyze high throughput RNA-Seq data 
+
+
 # Results Summary 
 The volcano plot visalizes the differential expression results for all filtered genes across 
 the 10 prioritized samples.
