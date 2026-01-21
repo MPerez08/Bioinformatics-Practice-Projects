@@ -1,23 +1,47 @@
 # Analysis of MIS-C Gene Expression Profiles using PyDESeq2
 
 ## Project Overview
+This repository contains a pipeline to identify differentially expressed genes (DEGs) in patients with Multisystem Inflammatory Syndrome (MIS) compared to a healthy control group.
 
-This project investigates the transcriptional differences between patients with Multisystem 
-Inflammatory Syndrome (MIS) vs a Control group (normal healthy participants). The goal is to identify significantly
-differentially expressed genes that may serve as biomarkers or provide insight into the inflammatory response. 
+## Goal
+Identify significantly differentially expressed genes that may serve as biomarkers or provide insight into the inflammatory response for clincal diagnostic purposes
 
 ## Data Source
 Dataset: E-CURD-149 (RNA-seq raw counts) 
 Publication: Jackson HR, Miglietta L, Habgood-Coote D, D'Souza G, Shah P et al. (2023) 
 " of Multisystem Inflammatory Syndrome in Children by a Whole-Blood Transcriptional Signature."
 
-## Data Filtering Explained
+# Data Pre-processing & Quality Control
+## Expression Threshold
 My initial raw counts file contained too much baground noise coming from samples with 0 reads. 
-To reduce my data being skewed, I filtered the file to only keep genes with 1) numerical data and 2) At least 3 Sample IDs having a minimum of 10 raw counts or more for that gene.
+To reduce my data skewing statistical models, I filtered the file to only keep genes with 1) numerical data and 2) At least 3 Sample IDs having a minimum of 10 raw counts or more for that gene.
 
-```counts = counts.select_dtypes(include="number")``` & 
-```counts = counts[(counts >= 10).sum(axis=1) >= 3] ```
+```counts = counts.select_dtypes(include="number")``` & ```counts = counts[(counts >= 10).sum(axis=1) >= 3] ```
 
+## Normalization
+Data was log2-tranformed and normalized to account for differences in sequencing depth across samples. 
+
+# Data Visualization Methods and Reasoning
+
+## Principal Component Analysis (PCA)
+Using PCA as visual method will allow me to see if there is an apparent batching effect or noticeable grouping between samples. My assumption is that the MIS samples will cluster together,
+this would indicate their raw counts are correlated to the disease state and not simply biological noise
+
+## Volcano PLot
+Using a volcano plot visualization of all the genes will allow me to gauge the scale of 
+change in the raw counts as well how statistically significant those changes were. My guess is that the genes that are most upregulated and down regulated will be directly a part of biological pathways or signaling groups involved in inflammation responses. 
+
+## HeatMap
+Using a heatmap visualization of all genes will allow me to gauge whether the up and down regulation of the top 20 most significant genes is consistent accross all sample ID's or if it's simply a scattered phenotype.
+Secondly narrowing down the heatmap to only compare the 5 control vs 5 MIS samples sample will help clarify if the regulation of those top genes is consistent among the groupings of the disease state. 
+
+
+# Visual Analysis
+1.Principal Component Analysis (PCA)
+![image alt](C:\Users\miles\Documents\Bioinformatics\Project Practice)
+<img width="2711" height="1683" alt="PCA_MIS_vs_Control" src="https://github.com/user-attachments/assets/d99d2cf2-28ec-41f2-b8f6-3162b4159a8c" />
+
+* Insight: We used PCA to visualize the high-dimensional data. PC1 accounts for [48.3%] of the variance. The clear separation     between MIS and Control groups suggests a distinct transcriptional signature for the syndrome.
 
 ## Exploratory Data Analysis: PCA
 Before running differential expression, I performed Principal Component Analysis (PCA) to ensure the sample cluster by biological condition rather than technical noise.
@@ -36,24 +60,18 @@ typical of RNA-seq count data.
 
 ```coding block ... ``` 
 
-#Repositories Needed
-## Web Application Used
-Jupyer Notebook 
 
-##Below are the libraries you'll need to download:
 
-1) pandas: open sourced data analysis tool creating 2D DataFrame structures 
-allowing for intelligent filtering and cleaning from seamless loading of a diverse set of 
-sources inlcuding CSV, excel, SQL, JSON, and HDF5
 
-2) numpy: fundamental package for computing multidimensional arrays packed with high level mathematical functions to analyze data
 
-3) seaborn: Python data visualization providing high level interfaces and drawing informative statistical graphics with minimal code
 
-4) sklearn(Scikit-Learn):  open sourced machine learning library that performs "non-deep learning" focusing on predictive data analysis
-                           integrates well with Pandas Dataframes and NumPy arrays
 
-5) pydeseq: Python version of the DESeq2 which is a specialized package designed to analyze high throughput RNA-Seq data 
+
+
+
+
+
+
 
 
 # Results Summary 
