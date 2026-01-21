@@ -15,8 +15,8 @@ Publication: Jackson HR, Miglietta L, Habgood-Coote D, D'Souza G, Shah P et al. 
 My initial raw counts file contained much baground noise coming from samples with 0 reads. 
 To reduce data being skewed, I filtered the file to only keep genes with at least 3 Sample IDs having a minimum of 10 raw counts or more 
 
-```counts = counts.select_dtypes(include="number")```
-```counts = counts[(counts >= 10).sum(axis=1) >= 3] ```
+```counts = counts.select_dtypes(include="number")
+counts = counts[(counts >= 10).sum(axis=1) >= 3] ```
 
 
 ## Exploratory Data Analysis: PCA
