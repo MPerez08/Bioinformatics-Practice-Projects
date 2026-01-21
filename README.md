@@ -11,6 +11,14 @@ Dataset: E-CURD-149 (RNA-seq raw counts)
 Publication: Jackson HR, Miglietta L, Habgood-Coote D, D'Souza G, Shah P et al. (2023) 
 " of Multisystem Inflammatory Syndrome in Children by a Whole-Blood Transcriptional Signature."
 
+## Data Filtering Explained
+My initial raw counts file contained much baground noise coming from samples with 0 reads. 
+To reduce data being skewed, I filtered the file to only keep genes with at least 3 Sample IDs having a minimum of 10 raw counts or more 
+
+```counts = counts.select_dtypes(include="number")
+counts = counts[(counts >= 10).sum(axis=1) >= 3] ```
+
+
 ## Exploratory Data Analysis: PCA
 Before running differential expression, I performed Principal Component Analysis (PCA) to ensure the sample cluster by biological condition rather than technical noise.
 
