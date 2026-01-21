@@ -46,7 +46,7 @@ plt.xlabel("$\log_2$ Fold Change (MIS vs Control)")
 plt.ylabel("$-\log_{10}$ Adjusted P-value")
 
 plt.title("Differential Gene Expression: MIS vs Control Samples")
-plt.legend(loc='upper right')
+plt.legend(loc='upper left')
 
 # Add a grid for better readability
 plt.grid(alpha=0.2)
