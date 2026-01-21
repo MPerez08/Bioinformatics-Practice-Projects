@@ -38,7 +38,7 @@ Secondly narrowing down the heatmap to only compare the 5 control vs 5 MIS sampl
 
 # Visual Analysis
 1.Principal Component Analysis (PCA)
-![image alt](C:\Users\miles\Documents\Bioinformatics\Project Practice)
+
 <img width="2711" height="1683" alt="PCA_MIS_vs_Control" src="https://github.com/user-attachments/assets/d99d2cf2-28ec-41f2-b8f6-3162b4159a8c" />
 
 * Insight: We used PCA to visualize the high-dimensional data. PC1 accounts for [48.3%] of the variance. The clear separation     between MIS and Control groups suggests a distinct transcriptional signature for the syndrome.
